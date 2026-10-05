@@ -3,17 +3,107 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MatchSong</title>
-<meta name="description" content="Automatically sync the original song to your video. Pick a video filmed with music playing in the background, add the original song, and MatchSong syncs it automatically, perfectly in time, right on your iPhone.">
+<title>MatchSong · Automatically sync the original song to your video</title>
+<meta name="description" content="Pick a video filmed with music playing in the background, add the original song, and MatchSong syncs it automatically, perfectly in time. On your iPhone.">
+<meta name="theme-color" content="#0E0D0C">
+<meta property="og:title" content="MatchSong">
+<meta property="og:description" content="Automatically sync the original song to your video.">
+<meta property="og:image" content="https://matchsong.com/og-image.png">
+<meta property="og:url" content="https://matchsong.com/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main>
-<a class="brand" href="./">Match<b>Song</b></a>
-<h1>Automatically sync the original song to your video.</h1>
-<p class="lead">Pick a video filmed with music playing in the background, add the original song, and MatchSong syncs it automatically, perfectly in time. Keep as much of your video's own sound as you like. Everything happens on your iPhone.</p>
-<p>Coming soon to the App Store.</p>
-<p><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="mailto:support@matchsong.com">Contact</a></p>
-</main>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="./"><img src="icon.png" alt=""><span>Match<b>Song</b></span></a>
+    <nav><a class="link" href="#how">How it works</a><a class="link" href="#features">Features</a><span class="chip"><i></i>Coming soon</span></nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <span class="chip"><i></i>For iPhone</span>
+        <h1>Automatically sync <em>the original song</em> to your video.</h1>
+        <p class="lead">Pick a video filmed with music playing in the background, add the original song, and MatchSong syncs it <strong>automatically, perfectly in time</strong>. No more room echo, chatter or tinny speaker: just the song, as it was recorded.</p>
+        <div class="actions">
+          <a class="pill primary" href="#how">See how it works</a>
+          <span class="pill quiet">Coming soon to the App Store</span>
+        </div>
+        <p class="note">Find, preview and edit for free. Exporting needs MatchSong Pro.</p>
+      </div>
+      <div class="stage">
+        <div class="phone"><img src="shots/editor.jpg" width="600" height="1305" alt="MatchSong on iPhone: a dance video with the song Columbia found and placed, in sync."></div>
+        <div class="badge found"><b>~1 s</b> to find the song</div>
+        <div class="badge sync"><b>0.0 ms</b> in sync</div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<section class="lens" aria-label="How it sounds">
+  <div class="wrap">
+    <svg viewBox="0 0 1000 240" role="img" aria-label="A noisy recording passes through a lens and comes out as one clean wave: the original song.">
+  <defs><radialGradient id="glass" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#FF7A33" stop-opacity="0.32"/><stop offset="1" stop-color="#FF7A33" stop-opacity="0.05"/></radialGradient><clipPath id="songView"><rect x="612" y="0" width="356" height="240"/></clipPath></defs>
+  <g class="noise"><rect x="40" y="45" width="8" height="150" rx="4" opacity="0.88" style="animation-delay:-0.63s"/><rect x="59" y="105" width="8" height="30" rx="4" opacity="0.48" style="animation-delay:-0.86s"/><rect x="78" y="45" width="8" height="150" rx="4" opacity="0.71" style="animation-delay:-1.46s"/><rect x="97" y="72" width="8" height="96" rx="4" opacity="0.47" style="animation-delay:-0.69s"/><rect x="116" y="94" width="8" height="52" rx="4" opacity="0.56" style="animation-delay:-0.88s"/><rect x="135" y="105" width="8" height="30" rx="4" opacity="0.82" style="animation-delay:-0.20s"/><rect x="154" y="72" width="8" height="96" rx="4" opacity="0.73" style="animation-delay:-0.93s"/><rect x="173" y="105" width="8" height="30" rx="4" opacity="0.71" style="animation-delay:-0.63s"/><rect x="192" y="72" width="8" height="96" rx="4" opacity="0.47" style="animation-delay:-1.37s"/><rect x="211" y="60" width="8" height="120" rx="4" opacity="0.64" style="animation-delay:-0.87s"/><rect x="230" y="88" width="8" height="64" rx="4" opacity="0.59" style="animation-delay:-1.31s"/><rect x="249" y="85" width="8" height="70" rx="4" opacity="0.50" style="animation-delay:-0.91s"/><rect x="268" y="72" width="8" height="96" rx="4" opacity="0.62" style="animation-delay:-0.88s"/><rect x="287" y="94" width="8" height="52" rx="4" opacity="0.70" style="animation-delay:-0.99s"/><rect x="306" y="76" width="8" height="88" rx="4" opacity="0.76" style="animation-delay:-0.68s"/><rect x="325" y="45" width="8" height="150" rx="4" opacity="0.66" style="animation-delay:-1.48s"/><rect x="344" y="45" width="8" height="150" rx="4" opacity="0.58" style="animation-delay:-1.27s"/><rect x="363" y="72" width="8" height="96" rx="4" opacity="0.49" style="animation-delay:-0.48s"/></g>
+  <circle cx="500" cy="120" r="106" fill="url(#glass)" stroke="#EDE8DF" stroke-opacity="0.55" stroke-width="2.5"/>
+  <circle cx="500" cy="120" r="96" fill="none" stroke="#EDE8DF" stroke-opacity="0.12" stroke-width="1.5"/>
+  <path d="M440 132 C468 52 488 56 500 120 S532 188 560 108" fill="none" stroke="#EDE8DF" stroke-width="13" stroke-linecap="round"/>
+  <g clip-path="url(#songView)"><path class="song" d="M484.0,120.0 L488.0,128.5 L492.0,136.6 L496.0,144.2 L500.0,151.0 L504.0,156.7 L508.0,161.2 L512.0,164.2 L516.0,165.8 L520.0,165.8 L524.0,164.2 L528.0,161.2 L532.0,156.7 L536.0,151.0 L540.0,144.2 L544.0,136.6 L548.0,128.5 L552.0,120.0 L556.0,111.5 L560.0,103.4 L564.0,95.8 L568.0,89.0 L572.0,83.3 L576.0,78.8 L580.0,75.8 L584.0,74.2 L588.0,74.2 L592.0,75.8 L596.0,78.8 L600.0,83.3 L604.0,89.0 L608.0,95.8 L612.0,103.4 L616.0,111.5 L620.0,120.0 L624.0,128.5 L628.0,136.6 L632.0,144.2 L636.0,151.0 L640.0,156.7 L644.0,161.2 L648.0,164.2 L652.0,165.8 L656.0,165.8 L660.0,164.2 L664.0,161.2 L668.0,156.7 L672.0,151.0 L676.0,144.2 L680.0,136.6 L684.0,128.5 L688.0,120.0 L692.0,111.5 L696.0,103.4 L700.0,95.8 L704.0,89.0 L708.0,83.3 L712.0,78.8 L716.0,75.8 L720.0,74.2 L724.0,74.2 L728.0,75.8 L732.0,78.8 L736.0,83.3 L740.0,89.0 L744.0,95.8 L748.0,103.4 L752.0,111.5 L756.0,120.0 L760.0,128.5 L764.0,136.6 L768.0,144.2 L772.0,151.0 L776.0,156.7 L780.0,161.2 L784.0,164.2 L788.0,165.8 L792.0,165.8 L796.0,164.2 L800.0,161.2 L804.0,156.7 L808.0,151.0 L812.0,144.2 L816.0,136.6 L820.0,128.5 L824.0,120.0 L828.0,111.5 L832.0,103.4 L836.0,95.8 L840.0,89.0 L844.0,83.3 L848.0,78.8 L852.0,75.8 L856.0,74.2 L860.0,74.2 L864.0,75.8 L868.0,78.8 L872.0,83.3 L876.0,89.0 L880.0,95.8 L884.0,103.4 L888.0,111.5 L892.0,120.0 L896.0,128.5 L900.0,136.6 L904.0,144.2 L908.0,151.0 L912.0,156.7 L916.0,161.2 L920.0,164.2 L924.0,165.8 L928.0,165.8 L932.0,164.2 L936.0,161.2 L940.0,156.7 L944.0,151.0 L948.0,144.2 L952.0,136.6 L956.0,128.5 L960.0,120.0" fill="none" stroke="#FF7A33" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
+</svg>
+    <p>Your phone heard the room. <span>MatchSong brings back the song.</span></p>
+  </div>
+</section>
+
+<div class="wrap">
+  <section class="block" id="how">
+    <div class="kicker">How it works</div>
+    <h2 class="title">Three steps, and your video sounds like the real thing.</h2>
+    <div class="grid">
+      <div class="card"><div class="step">1</div><h3>Pick your video</h3><p>A dance class, a recital, a party: any video you filmed while the song played from a speaker.</p></div>
+      <div class="card"><div class="step">2</div><h3>Add the original song</h3><p>The song file from your iPhone: MP3, AAC, WAV, FLAC and more.</p></div>
+      <div class="card"><div class="step">3</div><h3>It&rsquo;s in sync</h3><p>MatchSong finds where the song plays and lines it up. Adjust if you like, then export. Your picture stays untouched, in its original quality.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="features">
+    <div class="kicker">Made for real recordings</div>
+    <h2 class="title">Precise where it counts, simple everywhere else.</h2>
+    <div class="grid">
+      <div class="card"><svg viewBox="0 0 32 32"><circle cx="16" cy="17" r="11"/><path d="M16 17l5-5M13 3h6M16 6V3"/></svg><h3>To the millisecond</h3><p>The song is lined up with your video to within a millisecond, measured on real recordings.</p></div>
+      <div class="card"><svg viewBox="0 0 32 32"><path d="M3 16h2M8 10v12M12 6v20M16 12v8M20 4v24M24 9v14M28 14v4"/></svg><h3>Hears through the noise</h3><p>Talking, cheering, a busy room: MatchSong finds the song underneath, even when the crowd is louder than the music.</p></div>
+      <div class="card"><svg viewBox="0 0 32 32"><path d="M4 8h10v16H4zM18 8h10v16H18z"/><path d="M14 16h4"/></svg><h3>Skips and repeats</h3><p>Paused, skipped or played again? Every part of the song is found and put in its place.</p></div>
+      <div class="card"><svg viewBox="0 0 32 32"><path d="M11 28h10l-3-22h-4z"/><path d="M16 20l7-9"/><circle cx="16" cy="20" r="1.5"/></svg><h3>Faster or slower</h3><p>Practising at 90% speed? MatchSong notices and stretches the song to match, without changing its pitch.</p></div>
+      <div class="card"><svg viewBox="0 0 32 32"><path d="M8 4v24M16 4v24M24 4v24"/><circle cx="8" cy="20" r="3"/><circle cx="16" cy="10" r="3"/><circle cx="24" cy="17" r="3"/></svg><h3>Your mix, your way</h3><p>Keep some of the room under the song, fade in and out, set every part&rsquo;s volume. Hear it all before you export.</p></div>
+      <div class="card"><svg viewBox="0 0 32 32"><rect x="6" y="14" width="20" height="14" rx="3"/><path d="M11 14v-4a5 5 0 0 1 10 0v4"/></svg><h3>Private by design</h3><p>Everything happens on your iPhone. No account, no uploads, no tracking.</p></div>
+    </div>
+  </section>
+
+  <section class="block" aria-label="Screenshots">
+    <div class="kicker">See it</div>
+    <h2 class="title">Calm, clear, and fast to use.</h2>
+    <div class="shots">
+      <figure><img src="shots/projects.jpg" width="600" height="1305" alt="The projects page, with the MatchSong wordmark and two dance videos." loading="lazy"><figcaption>Your projects, saved as you go</figcaption></figure>
+      <figure><img src="shots/editor.jpg" width="600" height="1305" alt="The editor: the video, the recorded sound and the song, in sync." loading="lazy"><figcaption>Found, placed, in sync</figcaption></figure>
+      <figure><img src="shots/volume.jpg" width="600" height="1305" alt="The Volume panel: the song at 0 dB and the recorded sound under it switched off." loading="lazy"><figcaption>Every sound at the level you want</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="plan">
+    <div>
+      <h2>Find, preview and edit for free.</h2>
+      <p>Try it on your own videos at no cost. Exporting the finished video needs MatchSong Pro.</p>
+    </div>
+    <span class="pill quiet">Coming soon to the App Store</span>
+  </section>
+
+  <footer>
+    <a class="brand" href="./"><img src="icon.png" alt=""><span>Match<b>Song</b></span></a>
+    <nav><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="mailto:support@matchsong.com">support@matchsong.com</a></nav>
+    <span>&copy; 2026 MatchSong</span>
+  </footer>
+</div>
 </body>
 </html>
