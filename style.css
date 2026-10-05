@@ -1,0 +1,15 @@
+/* MatchSong's pages: the app's warm studio look, one typeface, orange for links. */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&display=swap');
+:root { --bg: #EDE8DF; --text: #0E0D0C; --muted: #5F5A52; --accent: #B2440C; }
+@media (prefers-color-scheme: dark) { :root { --bg: #0E0D0C; --text: #EDE8DF; --muted: #A39D93; --accent: #FF7A33; } }
+body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.6 'Instrument Sans', system-ui, sans-serif; }
+main { max-width: 680px; margin: 0 auto; padding: 40px 20px 80px; }
+.brand { font-size: 26px; letter-spacing: -0.035em; color: var(--text); text-decoration: none; }
+.brand b { font-weight: 600; }
+h1 { font-size: 34px; letter-spacing: -0.02em; margin: 32px 0 4px; }
+h2 { font-size: 20px; margin: 32px 0 6px; }
+.updated { color: var(--muted); margin: 0 0 24px; font-size: 15px; }
+.lead { font-size: 20px; }
+a { color: var(--accent); }
+ul { padding-left: 22px; }
+li { margin: 6px 0; }
