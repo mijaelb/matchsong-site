@@ -163,7 +163,11 @@ let audio = null, playing = false, at = 0, listening = 'recorded', waves = null;
 
 async function prepare() {
   if (audio) return audio;
+  // Play like a video, not like a game: on iPhone, game sound is muted by the silent switch
+  // (it still plays in headphones, so the demo seemed broken only on the phone's speaker).
+  if (navigator.audioSession) navigator.audioSession.type = 'playback';
   const context = new (window.AudioContext || window.webkitAudioContext)();
+  context.resume();  // while the tap still counts as the listener's choice to play
   const load = async url => context.decodeAudioData(await (await fetch(url)).arrayBuffer());
   const [recorded, song] = await Promise.all([load('demo/recorded.mp4'), load('demo/song.mp4')]);
   const gains = { recorded: context.createGain(), song: context.createGain() };
