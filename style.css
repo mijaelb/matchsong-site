@@ -31,7 +31,7 @@ a { color: var(--accent); }
 @media (max-width: 760px) { .top nav .link { display: none; } }
 
 /* buttons and chips */
-.pill { display: inline-flex; align-items: center; gap: 8px; min-height: 50px; padding: 0 24px; border-radius: 999px; font-weight: 600; font-size: 16px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+.pill { display: inline-flex; align-items: center; gap: 8px; min-height: 50px; padding: 0 24px; border-radius: 999px; font-weight: 600; font-size: 16px; text-decoration: none; white-space: nowrap; transition: transform 0.2s, box-shadow 0.2s; }
 .pill.primary { background: var(--accent); color: var(--on-accent); box-shadow: 0 10px 30px rgba(255, 122, 51, 0.35); }
 .pill.primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255, 122, 51, 0.45); }
 .pill.quiet { border: 1px solid var(--line); color: var(--text); background: rgba(31, 28, 25, 0.6); }
