@@ -58,13 +58,13 @@
         <div>
           <div class="kicker">How it works</div>
           <h2 class="title">Three steps.</h2>
-          <ol class="steps reveal">
-            <li><span class="num">1</span><div><h3>Pick your video</h3><p>Any video filmed while music played.</p></div></li>
-            <li><span class="num">2</span><div><h3>Add the song</h3><p>MatchSong finds where it plays, by itself.</p></div></li>
-            <li><span class="num">3</span><div><h3>Export</h3><p>Your video, now with the real song.</p></div></li>
+          <ol class="steps reveal" id="steps">
+            <li data-from="0"><span class="num">1</span><div><h3>Pick your video</h3><p>Any video filmed while music played.</p></div></li>
+            <li data-from="3.31"><span class="num">2</span><div><h3>Add the song</h3><p>MatchSong finds where it plays, by itself.</p></div></li>
+            <li data-from="10.85"><span class="num">3</span><div><h3>Export</h3><p>Your video, now with the real song.</p></div></li>
           </ol>
         </div>
-        <div class="device reveal"><video id="app-video" src="demo/app.mp4" poster="demo/app-poster.jpg" muted loop playsinline preload="metadata" aria-label="MatchSong on iPhone: open the Ballet sample, the song is found and placed in sync, then Recorded and Song."></video></div>
+        <div class="device reveal"><video id="app-video" src="demo/app-steps.mp4" poster="demo/app-steps.jpg" muted loop playsinline preload="metadata" aria-label="MatchSong in use: a new project with a dance video, the song added and found in sync, then exported to Photos."></video></div>
       </div>
     </section>
 
@@ -260,6 +260,14 @@ lanes.addEventListener('pointermove', e => { if (lanes.hasPointerCapture(e.point
 lanes.addEventListener('keydown', e => { if (e.key === 'ArrowRight') seek(now() + 2); if (e.key === 'ArrowLeft') seek(now() - 2); if (e.key === ' ') { e.preventDefault(); toggle(); } });
 const appVideo = $('app-video');
 if (!still) new IntersectionObserver(([e]) => e.isIntersecting ? appVideo.play().catch(() => {}) : appVideo.pause()).observe(appVideo);
+// The step the app video is showing lights up beside it (each step says from which second).
+const steps = [...$('steps').children];
+function showStep() {
+  const t = appVideo.currentTime;
+  steps.forEach((li, i) => li.classList.toggle('now', t >= +li.dataset.from && (i + 1 === steps.length || t < +steps[i + 1].dataset.from)));
+  if (!appVideo.paused) requestAnimationFrame(showStep);
+}
+appVideo.addEventListener('play', () => { $('steps').classList.add('live'); showStep(); });
 fetch(WAVES_URL).then(r => r.json()).then(w => { waves = w; drawWaves(); });
 addEventListener('resize', drawWaves);
 requestAnimationFrame(frame);
