@@ -45,7 +45,7 @@ a { color: var(--accent); }
 .hero .wrap { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 40px; padding-bottom: 40px; }
 .hero h1 { font-size: clamp(40px, 6.2vw, 78px); line-height: 1.02; letter-spacing: -0.045em; font-weight: 600; margin: 20px 0 14px; max-width: 13em; text-wrap: balance; }
 .hero h1 em { font-style: normal; background: linear-gradient(100deg, #FF9A5C, var(--accent) 45%, #E5561A); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.lead { font-size: clamp(20px, 2.4vw, 26px); color: var(--muted); max-width: 32em; margin: 0 0 36px; }
+.lead { font-size: clamp(20px, 2.4vw, 26px); color: var(--muted); max-width: 32em; margin: 0 0 36px; text-wrap: balance; }
 .lead strong { color: var(--text); font-weight: 600; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center; margin-top: 28px; }
 @media (max-width: 900px) { .hero .wrap { padding-top: 28px; } }
