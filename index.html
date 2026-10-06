@@ -48,7 +48,7 @@
           <div class="playhead" id="playhead"></div>
         </div>
       </div>
-      <div class="actions"><span class="pill quiet">Coming soon to the App Store</span></div>
+      <div class="actions"><span class="pill quiet">Coming soon to the App Store</span><span class="free">Free to try</span></div>
     </div>
   </section>
 
@@ -65,10 +65,9 @@
 
     <section class="block" id="app">
       <div class="kicker">The app</div>
-      <h2 class="title">Found, placed, in sync.</h2>
-      <div class="stage reveal">
-        <div class="phone back"><img src="shots/projects.jpg" width="600" height="1305" alt="Your projects, saved as you go." loading="lazy"></div>
-        <div class="phone front"><img src="shots/editor.jpg" width="600" height="1305" alt="The editor: the song found and placed, 0.0 ms, in sync." loading="lazy"></div>
+      <h2 class="title">Tap the sample. Hear it sync.</h2>
+      <div class="device-stage reveal">
+        <div class="device"><video id="app-video" src="demo/app.mp4" poster="demo/app-poster.jpg" muted loop playsinline preload="metadata" aria-label="MatchSong on iPhone: open the Ballet sample, the song is found and placed in sync, then Recorded and Song."></video></div>
         <div class="badge found"><span class="dot"></span><span><b>1 second</b><br>to find the song</span></div>
         <div class="badge sync"><span class="dot"></span><span><b>In sync</b><br>to the millisecond</span></div>
       </div>
@@ -250,6 +249,8 @@ const seekAt = e => { const c = $('wave-song').getBoundingClientRect(); seek((e.
 lanes.addEventListener('pointerdown', e => { lanes.setPointerCapture(e.pointerId); seekAt(e); });
 lanes.addEventListener('pointermove', e => { if (lanes.hasPointerCapture(e.pointerId)) seekAt(e); });
 lanes.addEventListener('keydown', e => { if (e.key === 'ArrowRight') seek(now() + 2); if (e.key === 'ArrowLeft') seek(now() - 2); if (e.key === ' ') { e.preventDefault(); toggle(); } });
+const appVideo = $('app-video');
+if (!still) new IntersectionObserver(([e]) => e.isIntersecting ? appVideo.play().catch(() => {}) : appVideo.pause()).observe(appVideo);
 fetch(WAVES_URL).then(r => r.json()).then(w => { waves = w; drawWaves(); });
 addEventListener('resize', drawWaves);
 requestAnimationFrame(frame);
