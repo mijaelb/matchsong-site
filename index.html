@@ -58,7 +58,7 @@
     <section class="block" id="demo">
       <div class="kicker">Hear it</div>
       <h2 class="title">Same video. Flip the switch.</h2>
-      <p class="intro">Press play. <b>Recorded</b> is the sound a phone picks up in a dance studio: the song from a small speaker, the room&rsquo;s echo, people talking. <b>Song</b> is the original song, found in that recording by MatchSong and put back in sync.</p>
+      <p class="intro">Press play. <b>Recorded</b> is the sound a phone picks up from the back of a hall: the song from the stage speakers, far away and echoing, with the room&rsquo;s hum and a few voices. <b>Song</b> is the original song, found in that recording by MatchSong and put back in sync.</p>
       <div class="player reveal">
         <div class="screen">
           <video id="video" muted playsinline preload="metadata" poster="demo/poster.jpg" src="demo/dance.mp4"></video>
@@ -67,14 +67,14 @@
             <button type="button" role="radio" id="pick-song" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2.5 12C4.6 6.5 7.2 5 9.6 9.3C12 13.6 14.2 19.4 16.9 16.4C19.6 13.4 20.3 10.1 21.5 8.4"/></svg>Song</button>
           </div>
           <button class="play" id="play" type="button" aria-label="Play"></button>
-          <div class="readout" id="readout" aria-live="polite">Recorded: speaker, echo, people talking</div>
+          <div class="readout" id="readout" aria-live="polite">Recorded: from the back of the hall</div>
         </div>
         <div class="lanes" id="lanes" role="slider" tabindex="0" aria-label="Position in the demo" aria-valuemin="0" aria-valuemax="22" aria-valuenow="0">
           <div class="lane on" id="lane-recorded"><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="8" r="1.6"/><circle cx="19" cy="14" r="1.6"/></svg><em>Recorded</em></span><canvas id="wave-recorded"></canvas></div>
           <div class="lane" id="lane-song"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 13C6 6 9 6 12 12S18 18 21 10"/></svg><em>Song</em></span><canvas id="wave-song"></canvas></div>
           <div class="playhead" id="playhead"></div>
         </div>
-        <p class="fine">We recreated the recording ourselves: the song through a modelled small speaker 3 m away in a mirrored studio, with real studio voices and footsteps. So we know exactly where the song belongs. MatchSong found it in <b>Persephone</b> and placed the original <b>0.02 ms</b> from that spot.</p>
+        <p class="fine">We recreated the recording ourselves: the song from modelled stage speakers 6 m away in a reverberant hall, with real voices and footsteps and the hall&rsquo;s hum. So we know exactly where the song belongs. MatchSong found it in <b>Persephone</b> and placed the original within <b>0.02 ms</b> of that spot.</p>
       </div>
     </section>
 
@@ -206,7 +206,7 @@ function listen(which) {
   $('pick-song').setAttribute('aria-checked', which === 'song');
   $('lane-recorded').classList.toggle('on', which === 'recorded');
   $('lane-song').classList.toggle('on', which === 'song');
-  $('readout').innerHTML = which === 'song' ? '<b>Song</b> · in sync · 0.02 ms' : 'Recorded: speaker, echo, people talking';
+  $('readout').innerHTML = which === 'song' ? '<b>Song</b> · in sync · &lt;0.02 ms' : 'Recorded: from the back of the hall';
   if (audio) {
     const t = audio.context.currentTime;
     for (const name in audio.gains) { const g = audio.gains[name].gain; g.cancelScheduledValues(t); g.setValueAtTime(g.value, t); g.linearRampToValueAtTime(name === which ? 1 : 0, t + 0.03); }
