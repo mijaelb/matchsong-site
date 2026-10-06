@@ -37,7 +37,7 @@
           <video id="video" muted playsinline preload="metadata" poster="demo/poster.jpg" src="demo/dance.mp4"></video>
           <div class="switch" role="radiogroup" aria-label="Sound">
             <button type="button" role="radio" id="pick-recorded" aria-checked="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="2.5" cy="12.6" r="1.35"/><circle cx="5" cy="8.2" r="1.35"/><circle cx="7.4" cy="6.8" r="1.35"/><circle cx="9.8" cy="9.6" r="1.35"/><circle cx="12.1" cy="13.4" r="1.35"/><circle cx="14.5" cy="16.9" r="1.35"/><circle cx="16.9" cy="16.2" r="1.35"/><circle cx="19.3" cy="12.2" r="1.35"/><circle cx="21.6" cy="8.4" r="1.35"/></svg>Recorded</button>
-            <button type="button" role="radio" id="pick-song" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2.5 12C4.6 6.5 7.2 5 9.6 9.3C12 13.6 14.2 19.4 16.9 16.4C19.6 13.4 20.3 10.1 21.5 8.4"/></svg>Song</button>
+            <button type="button" role="radio" id="pick-song" aria-checked="false" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2.5 12C4.6 6.5 7.2 5 9.6 9.3C12 13.6 14.2 19.4 16.9 16.4C19.6 13.4 20.3 10.1 21.5 8.4"/></svg>Song</button>
           </div>
           <button class="play" id="play" type="button" aria-label="Play"></button>
           <div class="readout" id="readout" aria-live="polite">Recorded: what the phone heard</div>
@@ -194,6 +194,8 @@ function listen(which) {
   listening = which;
   $('pick-recorded').setAttribute('aria-checked', which === 'recorded');
   $('pick-song').setAttribute('aria-checked', which === 'song');
+  $('pick-recorded').tabIndex = which === 'recorded' ? 0 : -1;   // only the chosen one is a Tab stop
+  $('pick-song').tabIndex = which === 'song' ? 0 : -1;
   $('lane-recorded').classList.toggle('on', which === 'recorded');
   $('lane-song').classList.toggle('on', which === 'song');
   $('readout').innerHTML = which === 'song' ? '<b>Song</b>: in sync' : 'Recorded: what the phone heard';
@@ -213,7 +215,7 @@ function drawWaves() {
     canvas.width = w * r; canvas.height = h * r;
     const g = canvas.getContext('2d'); g.scale(r, r);
     const values = waves[name], step = w / values.length, mid = h / 2;
-    g.fillStyle = name === listening ? '#FF7A33' : '#5A544D';
+    g.fillStyle = name === listening ? '#FF7A33' : '#6E675F';  // the quiet one still 3.3:1 on its panel
     if (name === 'recorded') {
       values.forEach((v, i) => { const a = v * (mid - 3), jitter = ((i * 37) % 11) / 11 - 0.5;
         for (const y of [mid - a + jitter * 4, mid + a - jitter * 4]) { g.beginPath(); g.arc(i * step, y, 1.1, 0, 6.29); g.fill(); } });
@@ -232,6 +234,7 @@ function frame() {
   const canvas = $('wave-song');
   $('playhead').style.left = (canvas.offsetLeft + t / LENGTH * canvas.clientWidth) + 'px';
   $('lanes').setAttribute('aria-valuenow', Math.round(t));
+  $('lanes').setAttribute('aria-valuetext', `${Math.round(t)} seconds of ${LENGTH}`);
   document.body.classList.toggle('playing', playing);
   const p = $('play');
   if (p.dataset.on !== String(playing)) { p.dataset.on = playing; p.innerHTML = playing ? PAUSE : PLAY; p.setAttribute('aria-label', playing ? 'Pause' : 'Play'); }
@@ -239,6 +242,13 @@ function frame() {
 }
 $('play').onclick = toggle; video.onclick = toggle;
 $('pick-recorded').onclick = () => listen('recorded'); $('pick-song').onclick = () => listen('song');
+// the switch is a pair of radio buttons: the arrow keys move between them
+for (const [id, other] of [['pick-recorded', 'song'], ['pick-song', 'recorded']]) {
+  $(id).addEventListener('keydown', e => {
+    if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) return;
+    e.preventDefault(); listen(other); $('pick-' + other).focus();
+  });
+}
 const lanes = $('lanes');
 const seekAt = e => { const c = $('wave-song').getBoundingClientRect(); seek((e.clientX - c.left) / c.width * LENGTH); };
 lanes.addEventListener('pointerdown', e => { lanes.setPointerCapture(e.pointerId); seekAt(e); });

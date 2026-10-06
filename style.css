@@ -140,7 +140,7 @@ footer { margin-top: 72px; border-top: 1px solid var(--line); padding: 32px 0 48
 footer nav { display: flex; flex-wrap: wrap; gap: 18px; }
 footer a { color: var(--muted); text-decoration: none; }
 footer a:hover { color: var(--text); }
-footer .credits { flex-basis: 100%; margin: 0; font-size: 13px; color: #7D776F; }
+footer .credits { flex-basis: 100%; margin: 0; font-size: 13px; color: #857F76; }  /* 4.8:1 on studio black */
 footer .credits a { text-decoration: underline; }
 
 /* things that rise into view as the page scrolls (only once the script runs: no script, all shown) */
