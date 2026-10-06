@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MatchSong · Automatically sync the original song to your video</title>
-<meta name="description" content="Pick a video filmed with music playing in the background, add the original song, and MatchSong syncs it automatically, perfectly in time. On your iPhone.">
+<meta name="description" content="Automatically sync the original song to your video: the original track, your DJ mix or your band's desk recording, lined up with your video, perfectly in time. On your iPhone.">
 <meta name="theme-color" content="#0E0D0C">
 <meta property="og:title" content="MatchSong">
 <meta property="og:description" content="Automatically sync the original song to your video.">
@@ -13,97 +13,250 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/InstrumentSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
+<header class="top" id="top">
+  <div class="wrap">
     <a class="brand" href="./"><img src="icon.png" alt=""><span>Match<b>Song</b></span></a>
-    <nav><a class="link" href="#how">How it works</a><a class="link" href="#features">Features</a><span class="chip"><i></i>Coming soon</span></nav>
-  </header>
+    <nav><a class="link" href="#demo">Demo</a><a class="link" href="#how">How it works</a><a class="link" href="#for">Made for</a><a class="link" href="#features">Features</a><span class="chip"><i></i>Coming soon</span></nav>
+  </div>
+</header>
 
-  <main>
-    <section class="hero">
+<main>
+  <section class="hero">
+    <canvas id="lock" aria-hidden="true"></canvas>
+    <div class="wrap">
       <div>
         <span class="chip"><i></i>For iPhone</span>
         <h1>Automatically sync <em>the original song</em> to your video.</h1>
-        <p class="lead">Pick a video filmed with music playing in the background, add the original song, and MatchSong syncs it <strong>automatically, perfectly in time</strong>. No more room echo, chatter or tinny speaker: just the song, as it was recorded.</p>
+        <p class="lead"><strong>The original track, your DJ mix or your band&rsquo;s desk recording</strong>, lined up with your video, perfectly in time. No room echo, no chatter, no tinny phone sound: just the real thing.</p>
         <div class="actions">
-          <a class="pill primary" href="#how">See how it works</a>
+          <a class="pill primary" href="#demo">Hear the difference</a>
           <span class="pill quiet">Coming soon to the App Store</span>
         </div>
         <p class="note">Find, preview and edit for free. Exporting needs MatchSong Pro.</p>
       </div>
       <div class="stage">
-        <div class="phone"><img src="shots/editor.jpg" width="600" height="1305" alt="MatchSong on iPhone: a dance video with the song Columbia found and placed, in sync."></div>
-        <div class="badge found"><b>~1 s</b> to find the song</div>
-        <div class="badge sync"><b>0.0 ms</b> in sync</div>
+        <div class="phone back"><img src="shots/projects.jpg" width="600" height="1305" alt="The projects page: three dance videos."></div>
+        <div class="phone front"><img src="shots/editor.jpg" width="600" height="1305" alt="The editor: a ballet video with the song Persephone found and placed, 0.0 ms, in sync."></div>
+        <div class="badge found"><span class="dot"></span><span><b>~1 s</b><br>to find the song</span></div>
+        <div class="badge sync"><span class="dot"></span><span><b>&lt;1 ms</b><br>from the right spot</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="stats reveal">
+      <div><b>&lt;1<span> ms</span></b><p>Lined up within a millisecond, measured on real recordings</p></div>
+      <div><b>~1<span> s</span></b><p>To find the song on an iPhone</p></div>
+      <div><b>10<span>&times;</span></b><p>Found under a crowd ten times louder than the music, in our tests</p></div>
+      <div><b>0</b><p>Uploads: everything stays on your iPhone</p></div>
+    </div>
+
+    <section class="block" id="demo">
+      <div class="kicker">Hear it</div>
+      <h2 class="title">Same video. Flip the switch.</h2>
+      <p class="intro">Press play. <b>Recorded</b> is the sound a phone picks up in a dance studio: the song from a small speaker, the room&rsquo;s echo, people talking. <b>Song</b> is the original song, found in that recording by MatchSong and put back in sync.</p>
+      <div class="player reveal">
+        <div class="screen">
+          <video id="video" muted playsinline preload="metadata" poster="demo/poster.jpg" src="demo/dance.mp4"></video>
+          <div class="switch" role="radiogroup" aria-label="Sound">
+            <button type="button" role="radio" id="pick-recorded" aria-checked="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="2.5" cy="12.6" r="1.35"/><circle cx="5" cy="8.2" r="1.35"/><circle cx="7.4" cy="6.8" r="1.35"/><circle cx="9.8" cy="9.6" r="1.35"/><circle cx="12.1" cy="13.4" r="1.35"/><circle cx="14.5" cy="16.9" r="1.35"/><circle cx="16.9" cy="16.2" r="1.35"/><circle cx="19.3" cy="12.2" r="1.35"/><circle cx="21.6" cy="8.4" r="1.35"/></svg>Recorded</button>
+            <button type="button" role="radio" id="pick-song" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2.5 12C4.6 6.5 7.2 5 9.6 9.3C12 13.6 14.2 19.4 16.9 16.4C19.6 13.4 20.3 10.1 21.5 8.4"/></svg>Song</button>
+          </div>
+          <button class="play" id="play" type="button" aria-label="Play"></button>
+          <div class="readout" id="readout" aria-live="polite">Recorded: speaker, echo, people talking</div>
+        </div>
+        <div class="lanes" id="lanes" role="slider" tabindex="0" aria-label="Position in the demo" aria-valuemin="0" aria-valuemax="22" aria-valuenow="0">
+          <div class="lane on" id="lane-recorded"><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="8" r="1.6"/><circle cx="19" cy="14" r="1.6"/></svg><em>Recorded</em></span><canvas id="wave-recorded"></canvas></div>
+          <div class="lane" id="lane-song"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 13C6 6 9 6 12 12S18 18 21 10"/></svg><em>Song</em></span><canvas id="wave-song"></canvas></div>
+          <div class="playhead" id="playhead"></div>
+        </div>
+        <p class="fine">We recreated the recording ourselves: the song through a modelled small speaker 3 m away in a mirrored studio, with real studio voices and footsteps. So we know exactly where the song belongs. MatchSong found it in <b>Persephone</b> and placed the original <b>0.02 ms</b> from that spot.</p>
       </div>
     </section>
-  </main>
-</div>
 
-<section class="lens" aria-label="How it sounds">
-  <div class="wrap">
-    <svg viewBox="0 0 1000 240" role="img" aria-label="A noisy recording passes through a lens and comes out as one clean wave: the original song.">
-  <defs><radialGradient id="glass" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#FF7A33" stop-opacity="0.32"/><stop offset="1" stop-color="#FF7A33" stop-opacity="0.05"/></radialGradient><clipPath id="songView"><rect x="612" y="0" width="356" height="240"/></clipPath></defs>
-  <g class="noise"><rect x="40" y="45" width="8" height="150" rx="4" opacity="0.88" style="animation-delay:-0.63s"/><rect x="59" y="105" width="8" height="30" rx="4" opacity="0.48" style="animation-delay:-0.86s"/><rect x="78" y="45" width="8" height="150" rx="4" opacity="0.71" style="animation-delay:-1.46s"/><rect x="97" y="72" width="8" height="96" rx="4" opacity="0.47" style="animation-delay:-0.69s"/><rect x="116" y="94" width="8" height="52" rx="4" opacity="0.56" style="animation-delay:-0.88s"/><rect x="135" y="105" width="8" height="30" rx="4" opacity="0.82" style="animation-delay:-0.20s"/><rect x="154" y="72" width="8" height="96" rx="4" opacity="0.73" style="animation-delay:-0.93s"/><rect x="173" y="105" width="8" height="30" rx="4" opacity="0.71" style="animation-delay:-0.63s"/><rect x="192" y="72" width="8" height="96" rx="4" opacity="0.47" style="animation-delay:-1.37s"/><rect x="211" y="60" width="8" height="120" rx="4" opacity="0.64" style="animation-delay:-0.87s"/><rect x="230" y="88" width="8" height="64" rx="4" opacity="0.59" style="animation-delay:-1.31s"/><rect x="249" y="85" width="8" height="70" rx="4" opacity="0.50" style="animation-delay:-0.91s"/><rect x="268" y="72" width="8" height="96" rx="4" opacity="0.62" style="animation-delay:-0.88s"/><rect x="287" y="94" width="8" height="52" rx="4" opacity="0.70" style="animation-delay:-0.99s"/><rect x="306" y="76" width="8" height="88" rx="4" opacity="0.76" style="animation-delay:-0.68s"/><rect x="325" y="45" width="8" height="150" rx="4" opacity="0.66" style="animation-delay:-1.48s"/><rect x="344" y="45" width="8" height="150" rx="4" opacity="0.58" style="animation-delay:-1.27s"/><rect x="363" y="72" width="8" height="96" rx="4" opacity="0.49" style="animation-delay:-0.48s"/></g>
-  <circle cx="500" cy="120" r="106" fill="url(#glass)" stroke="#EDE8DF" stroke-opacity="0.55" stroke-width="2.5"/>
-  <circle cx="500" cy="120" r="96" fill="none" stroke="#EDE8DF" stroke-opacity="0.12" stroke-width="1.5"/>
-  <path d="M440 132 C468 52 488 56 500 120 S532 188 560 108" fill="none" stroke="#EDE8DF" stroke-width="13" stroke-linecap="round"/>
-  <g clip-path="url(#songView)"><path class="song" d="M484.0,120.0 L488.0,128.5 L492.0,136.6 L496.0,144.2 L500.0,151.0 L504.0,156.7 L508.0,161.2 L512.0,164.2 L516.0,165.8 L520.0,165.8 L524.0,164.2 L528.0,161.2 L532.0,156.7 L536.0,151.0 L540.0,144.2 L544.0,136.6 L548.0,128.5 L552.0,120.0 L556.0,111.5 L560.0,103.4 L564.0,95.8 L568.0,89.0 L572.0,83.3 L576.0,78.8 L580.0,75.8 L584.0,74.2 L588.0,74.2 L592.0,75.8 L596.0,78.8 L600.0,83.3 L604.0,89.0 L608.0,95.8 L612.0,103.4 L616.0,111.5 L620.0,120.0 L624.0,128.5 L628.0,136.6 L632.0,144.2 L636.0,151.0 L640.0,156.7 L644.0,161.2 L648.0,164.2 L652.0,165.8 L656.0,165.8 L660.0,164.2 L664.0,161.2 L668.0,156.7 L672.0,151.0 L676.0,144.2 L680.0,136.6 L684.0,128.5 L688.0,120.0 L692.0,111.5 L696.0,103.4 L700.0,95.8 L704.0,89.0 L708.0,83.3 L712.0,78.8 L716.0,75.8 L720.0,74.2 L724.0,74.2 L728.0,75.8 L732.0,78.8 L736.0,83.3 L740.0,89.0 L744.0,95.8 L748.0,103.4 L752.0,111.5 L756.0,120.0 L760.0,128.5 L764.0,136.6 L768.0,144.2 L772.0,151.0 L776.0,156.7 L780.0,161.2 L784.0,164.2 L788.0,165.8 L792.0,165.8 L796.0,164.2 L800.0,161.2 L804.0,156.7 L808.0,151.0 L812.0,144.2 L816.0,136.6 L820.0,128.5 L824.0,120.0 L828.0,111.5 L832.0,103.4 L836.0,95.8 L840.0,89.0 L844.0,83.3 L848.0,78.8 L852.0,75.8 L856.0,74.2 L860.0,74.2 L864.0,75.8 L868.0,78.8 L872.0,83.3 L876.0,89.0 L880.0,95.8 L884.0,103.4 L888.0,111.5 L892.0,120.0 L896.0,128.5 L900.0,136.6 L904.0,144.2 L908.0,151.0 L912.0,156.7 L916.0,161.2 L920.0,164.2 L924.0,165.8 L928.0,165.8 L932.0,164.2 L936.0,161.2 L940.0,156.7 L944.0,151.0 L948.0,144.2 L952.0,136.6 L956.0,128.5 L960.0,120.0" fill="none" stroke="#FF7A33" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
-</svg>
-    <p>Your phone heard the room. <span>MatchSong brings back the song.</span></p>
+    <section class="block" id="how">
+      <div class="kicker">How it works</div>
+      <h2 class="title">Three steps, and your video sounds like the real thing.</h2>
+      <div class="grid">
+        <div class="card reveal"><div class="num">1</div><h3>Pick your video</h3><p>A dance class, a recital, a gig, a party: any video you filmed while the music played.</p></div>
+        <div class="card reveal"><div class="num">2</div><h3>Add the original</h3><p>The song itself, or any better recording of the same music: your DJ mix, the mixing desk, an external microphone. MP3, AAC, WAV, FLAC and more.</p></div>
+        <div class="card reveal"><div class="num">3</div><h3>It&rsquo;s in sync</h3><p>MatchSong finds where the music plays and lines it up. Adjust if you like, then export. The picture stays untouched, in its original quality.</p></div>
+      </div>
+    </section>
+
+    <section class="block" id="for">
+      <div class="kicker">Made for</div>
+      <h2 class="title">Anyone who films music and wants it to sound right.</h2>
+      <div class="grid four">
+        <div class="card who dancers reveal"><div class="mark"><svg viewBox="0 0 32 32"><circle cx="17" cy="5.5" r="2.5"/><path d="M16 9l-2 9 5 4 1 7M14 18l-5 4M16 11l6-3 4 2M15 12l-6 1-3-3"/></svg></div><h3>Dancers</h3><p>Class and practice videos with the real song instead of the room: choreography that&rsquo;s a joy to share.</p></div>
+        <div class="card who djs reveal"><div class="mark"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11"/><circle cx="16" cy="16" r="3"/><path d="M24 6l3-2M16 5a11 11 0 0 1 9 5"/></svg></div><h3>DJs</h3><p>Put your recorded mix on the crowd videos from your set, every moment in sync.</p></div>
+        <div class="card who bands reveal"><div class="mark"><svg viewBox="0 0 32 32"><rect x="12" y="3" width="8" height="15" rx="4"/><path d="M7 14a9 9 0 0 0 18 0M16 23v6M11 29h10"/></svg></div><h3>Bands</h3><p>Film the gig on a phone or camera, then sync the recording from the mixing desk or your own microphones.</p></div>
+        <div class="card who video reveal"><div class="mark"><svg viewBox="0 0 32 32"><rect x="3" y="9" width="19" height="15" rx="3"/><path d="M22 14l7-4v13l-7-4z"/></svg></div><h3>Videographers</h3><p>Weddings, shows and events: line up the clean audio from your external recorder with every clip.</p></div>
+      </div>
+    </section>
+
+    <section class="block" id="features">
+      <div class="kicker">Made for real recordings</div>
+      <h2 class="title">Precise where it counts, simple everywhere else.</h2>
+      <div class="grid">
+        <div class="card reveal"><svg viewBox="0 0 32 32"><circle cx="16" cy="17" r="11"/><path d="M16 17l5-5M13 3h6M16 6V3"/></svg><h3>To the millisecond</h3><p>The music is lined up with your video to within a millisecond, measured on real recordings.</p></div>
+        <div class="card reveal"><svg viewBox="0 0 32 32"><path d="M3 16h2M8 10v12M12 6v20M16 12v8M20 4v24M24 9v14M28 14v4"/></svg><h3>Hears through the noise</h3><p>Talking, cheering, a busy room: MatchSong finds the song underneath, even with the crowd louder than the music.</p></div>
+        <div class="card reveal"><svg viewBox="0 0 32 32"><path d="M4 8h10v16H4zM18 8h10v16H18z"/><path d="M14 16h4"/></svg><h3>Skips and repeats</h3><p>Paused, skipped or played again? Every part of the song is found and put in its place.</p></div>
+        <div class="card reveal"><svg viewBox="0 0 32 32"><path d="M11 28h10l-3-22h-4z"/><path d="M16 20l7-9"/><circle cx="16" cy="20" r="1.5"/></svg><h3>Faster or slower</h3><p>Practising at 90% speed? MatchSong notices and stretches the song to match, without changing its pitch.</p></div>
+        <div class="card reveal"><svg viewBox="0 0 32 32"><path d="M8 4v24M16 4v24M24 4v24"/><circle cx="8" cy="20" r="3"/><circle cx="16" cy="10" r="3"/><circle cx="24" cy="17" r="3"/></svg><h3>Your mix, your way</h3><p>Keep some of the room under the song, fade in and out, set every part&rsquo;s volume. Hear it all before you export.</p></div>
+        <div class="card reveal"><svg viewBox="0 0 32 32"><rect x="6" y="14" width="20" height="14" rx="3"/><path d="M11 14v-4a5 5 0 0 1 10 0v4"/></svg><h3>Private by design</h3><p>Everything happens on your iPhone. No account, no uploads, no tracking.</p></div>
+      </div>
+    </section>
+
+    <section class="plan reveal">
+      <div class="words"><img src="icon.png" alt=""><div><h2>Find, preview and edit for free.</h2><p>Try it on your own videos at no cost. Exporting the finished video needs MatchSong Pro.</p></div></div>
+      <span class="pill quiet">Coming soon to the App Store</span>
+    </section>
+
+    <footer>
+      <a class="brand" href="./"><img src="icon.png" alt=""><span>Match<b>Song</b></span></a>
+      <nav><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="mailto:support@matchsong.com">support@matchsong.com</a></nav>
+      <span>&copy; 2026 MatchSong</span>
+      <p class="credits">Demo: &ldquo;Portrait of a Dancer Sarah Lamb&rdquo; by Nowness, <a href="https://commons.wikimedia.org/wiki/File:Portrait_of_a_Dancer_Sarah_Lamb.webm">CC BY 3.0</a>, re-cut and recoloured with its sound replaced. &ldquo;Persephone&rdquo; by Madam Snowflake, <a href="https://ccmixter.org/files/snowflake/22364">CC BY 2.5</a>. Studio sounds by morganveilleux (Freesound), CC0. Screenshots show the same demo.</p>
+    </footer>
   </div>
-</section>
+</main>
 
-<div class="wrap">
-  <section class="block" id="how">
-    <div class="kicker">How it works</div>
-    <h2 class="title">Three steps, and your video sounds like the real thing.</h2>
-    <div class="grid">
-      <div class="card"><div class="step">1</div><h3>Pick your video</h3><p>A dance class, a recital, a party: any video you filmed while the song played from a speaker.</p></div>
-      <div class="card"><div class="step">2</div><h3>Add the original song</h3><p>The song file from your iPhone: MP3, AAC, WAV, FLAC and more.</p></div>
-      <div class="card"><div class="step">3</div><h3>It&rsquo;s in sync</h3><p>MatchSong finds where the song plays and lines it up. Adjust if you like, then export. Your picture stays untouched, in its original quality.</p></div>
-    </div>
-  </section>
+<script>
+document.documentElement.classList.add('js');
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = id => document.getElementById(id);
 
-  <section class="block" id="features">
-    <div class="kicker">Made for real recordings</div>
-    <h2 class="title">Precise where it counts, simple everywhere else.</h2>
-    <div class="grid">
-      <div class="card"><svg viewBox="0 0 32 32"><circle cx="16" cy="17" r="11"/><path d="M16 17l5-5M13 3h6M16 6V3"/></svg><h3>To the millisecond</h3><p>The song is lined up with your video to within a millisecond, measured on real recordings.</p></div>
-      <div class="card"><svg viewBox="0 0 32 32"><path d="M3 16h2M8 10v12M12 6v20M16 12v8M20 4v24M24 9v14M28 14v4"/></svg><h3>Hears through the noise</h3><p>Talking, cheering, a busy room: MatchSong finds the song underneath, even when the crowd is louder than the music.</p></div>
-      <div class="card"><svg viewBox="0 0 32 32"><path d="M4 8h10v16H4zM18 8h10v16H18z"/><path d="M14 16h4"/></svg><h3>Skips and repeats</h3><p>Paused, skipped or played again? Every part of the song is found and put in its place.</p></div>
-      <div class="card"><svg viewBox="0 0 32 32"><path d="M11 28h10l-3-22h-4z"/><path d="M16 20l7-9"/><circle cx="16" cy="20" r="1.5"/></svg><h3>Faster or slower</h3><p>Practising at 90% speed? MatchSong notices and stretches the song to match, without changing its pitch.</p></div>
-      <div class="card"><svg viewBox="0 0 32 32"><path d="M8 4v24M16 4v24M24 4v24"/><circle cx="8" cy="20" r="3"/><circle cx="16" cy="10" r="3"/><circle cx="24" cy="17" r="3"/></svg><h3>Your mix, your way</h3><p>Keep some of the room under the song, fade in and out, set every part&rsquo;s volume. Hear it all before you export.</p></div>
-      <div class="card"><svg viewBox="0 0 32 32"><rect x="6" y="14" width="20" height="14" rx="3"/><path d="M11 14v-4a5 5 0 0 1 10 0v4"/></svg><h3>Private by design</h3><p>Everything happens on your iPhone. No account, no uploads, no tracking.</p></div>
-    </div>
-  </section>
+// The top bar turns to glass once the page scrolls; sections rise into view once.
+const topBar = $('top');
+addEventListener('scroll', () => topBar.classList.toggle('solid', scrollY > 8), { passive: true });
+const seen = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('seen'); seen.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+document.querySelectorAll('.reveal').forEach(el => seen.observe(el));
 
-  <section class="block" aria-label="Screenshots">
-    <div class="kicker">See it</div>
-    <h2 class="title">Calm, clear, and fast to use.</h2>
-    <div class="shots">
-      <figure><img src="shots/projects.jpg" width="600" height="1305" alt="The projects page, with the MatchSong wordmark and two dance videos." loading="lazy"><figcaption>Your projects, saved as you go</figcaption></figure>
-      <figure><img src="shots/editor.jpg" width="600" height="1305" alt="The editor: the video, the recorded sound and the song, in sync." loading="lazy"><figcaption>Found, placed, in sync</figcaption></figure>
-      <figure><img src="shots/volume.jpg" width="600" height="1305" alt="The Volume panel: the song at 0 dB and the recorded sound under it switched off." loading="lazy"><figcaption>Every sound at the level you want</figcaption></figure>
-    </div>
-  </section>
+// The brand moment behind the headline: noisy dots drift, then lock onto one clean wave, and let go again.
+(function lock() {
+  const canvas = $('lock'), g = canvas.getContext('2d');
+  const dots = Array.from({ length: 150 }, (_, i) => ({ u: i / 149, jx: Math.random() * 2 - 1, jy: Math.random() * 2 - 1, phase: Math.random() * 6.28 }));
+  function size() { const r = devicePixelRatio || 1; canvas.width = canvas.clientWidth * r; canvas.height = canvas.clientHeight * r; g.setTransform(r, 0, 0, r, 0, 0); }
+  function draw(time) {
+    const w = canvas.clientWidth, h = canvas.clientHeight, cycle = (time / 1000) % 8;
+    // 0–3 s noisy, 3–4 s locking on, 4–7 s locked, 7–8 s letting go (eased)
+    const ease = x => x * x * (3 - 2 * x);
+    const locked = still ? 1 : cycle < 3 ? 0 : cycle < 4 ? ease(cycle - 3) : cycle < 7 ? 1 : 1 - ease(cycle - 7);
+    g.clearRect(0, 0, w, h);
+    for (const d of dots) {
+      const x = d.u * w, line = h * 0.62 + Math.sin(d.u * 9.4 + 0.6) * h * 0.12;
+      const wobble = still ? 0 : Math.sin(time / 900 + d.phase);
+      const loose = 1 - locked;
+      const px = x + loose * d.jx * 26, py = line + loose * (d.jy * h * 0.28 + wobble * 14);
+      g.beginPath(); g.arc(px, py, 1.6 + locked * 0.6, 0, 6.29);
+      g.fillStyle = `rgba(${Math.round(237 + 18 * locked)}, ${Math.round(232 - 110 * locked)}, ${Math.round(223 - 172 * locked)}, ${0.22 + 0.4 * locked})`;
+      g.fill();
+    }
+    if (!still) requestAnimationFrame(draw);
+  }
+  size(); addEventListener('resize', () => { size(); if (still) draw(0); });
+  still ? draw(0) : requestAnimationFrame(draw);
+})();
 
-  <section class="plan">
-    <div>
-      <h2>Find, preview and edit for free.</h2>
-      <p>Try it on your own videos at no cost. Exporting the finished video needs MatchSong Pro.</p>
-    </div>
-    <span class="pill quiet">Coming soon to the App Store</span>
-  </section>
+// The demo: both sounds play from one clock and the switch only fades between them (30 ms), so flipping never
+// loses the place. The picture follows what the listener hears (the sound clock minus the output delay).
+const WAVES_URL = 'demo/waves.json', LENGTH = 22;
+const PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 8 4.5z"/></svg>';
+const PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5.5" y="4" width="4.5" height="16" rx="1.2"/><rect x="14" y="4" width="4.5" height="16" rx="1.2"/></svg>';
+const video = $('video');
+let audio = null, playing = false, at = 0, listening = 'recorded', waves = null;
 
-  <footer>
-    <a class="brand" href="./"><img src="icon.png" alt=""><span>Match<b>Song</b></span></a>
-    <nav><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="mailto:support@matchsong.com">support@matchsong.com</a></nav>
-    <span>&copy; 2026 MatchSong</span>
-  </footer>
-</div>
+async function prepare() {
+  if (audio) return audio;
+  const context = new (window.AudioContext || window.webkitAudioContext)();
+  const load = async url => context.decodeAudioData(await (await fetch(url)).arrayBuffer());
+  const [recorded, song] = await Promise.all([load('demo/recorded.mp4'), load('demo/song.mp4')]);
+  const gains = { recorded: context.createGain(), song: context.createGain() };
+  for (const name in gains) { gains[name].connect(context.destination); gains[name].gain.value = name === listening ? 1 : 0; }
+  return audio = { context, buffers: { recorded, song }, gains, sources: [] };
+}
+const heardDelay = () => audio ? (audio.context.outputLatency || audio.context.baseLatency || 0) : 0;
+const now = () => playing ? Math.max(0, Math.min(LENGTH, audio.context.currentTime - audio.startedAt - heardDelay())) : at;
+function stopSources() { if (!audio) return; for (const s of audio.sources) { try { s.stop(); } catch (e) {} } audio.sources = []; }
+function start(from) {
+  stopSources();
+  const when = audio.context.currentTime + 0.05;
+  audio.sources = ['recorded', 'song'].map(name => {
+    const s = audio.context.createBufferSource(); s.buffer = audio.buffers[name]; s.connect(audio.gains[name]); s.start(when, from); return s;
+  });
+  audio.startedAt = when - from; playing = true;
+  video.currentTime = from;   // the picture starts when the sound is heard, not before
+  setTimeout(() => { if (playing) video.play().catch(() => {}); }, (when - audio.context.currentTime + heardDelay()) * 1000);
+}
+async function toggle() {
+  if (playing) { at = now(); stopSources(); playing = false; video.pause(); return; }
+  const a = await prepare();
+  if (a.context.state === 'suspended') await a.context.resume();
+  start(at >= LENGTH - 0.1 ? 0 : at);
+}
+function seek(t) { at = Math.max(0, Math.min(LENGTH - 0.05, t)); playing ? start(at) : (video.currentTime = at); }
+function listen(which) {
+  listening = which;
+  $('pick-recorded').setAttribute('aria-checked', which === 'recorded');
+  $('pick-song').setAttribute('aria-checked', which === 'song');
+  $('lane-recorded').classList.toggle('on', which === 'recorded');
+  $('lane-song').classList.toggle('on', which === 'song');
+  $('readout').innerHTML = which === 'song' ? '<b>Song</b> · in sync · 0.02 ms' : 'Recorded: speaker, echo, people talking';
+  if (audio) {
+    const t = audio.context.currentTime;
+    for (const name in audio.gains) { const g = audio.gains[name].gain; g.cancelScheduledValues(t); g.setValueAtTime(g.value, t); g.linearRampToValueAtTime(name === which ? 1 : 0, t + 0.03); }
+  }
+  if (!playing) toggle();
+  drawWaves();
+}
+
+// The two sounds drawn like the app's lanes: the recording as scattered dots, the song as one clean wave.
+function drawWaves() {
+  if (!waves) return;
+  for (const name of ['recorded', 'song']) {
+    const canvas = $('wave-' + name), r = devicePixelRatio || 1, w = canvas.clientWidth, h = canvas.clientHeight;
+    canvas.width = w * r; canvas.height = h * r;
+    const g = canvas.getContext('2d'); g.scale(r, r);
+    const values = waves[name], step = w / values.length, mid = h / 2;
+    g.fillStyle = name === listening ? '#FF7A33' : '#5A544D';
+    if (name === 'recorded') {
+      values.forEach((v, i) => { const a = v * (mid - 3), jitter = ((i * 37) % 11) / 11 - 0.5;
+        for (const y of [mid - a + jitter * 4, mid + a - jitter * 4]) { g.beginPath(); g.arc(i * step, y, 1.1, 0, 6.29); g.fill(); } });
+    } else {
+      g.beginPath(); g.moveTo(0, mid);
+      values.forEach((v, i) => g.lineTo(i * step, mid - v * (mid - 3)));
+      for (let i = values.length - 1; i >= 0; i--) g.lineTo(i * step, mid + values[i] * (mid - 3));
+      g.closePath(); g.fill();
+    }
+  }
+}
+function frame() {
+  const t = now();
+  if (playing && t >= LENGTH - 0.02) { playing = false; at = LENGTH; stopSources(); video.pause(); }
+  if (playing && !video.paused && Math.abs(video.currentTime - t) > 0.035) video.currentTime = t;
+  const canvas = $('wave-song');
+  $('playhead').style.left = (canvas.offsetLeft + t / LENGTH * canvas.clientWidth) + 'px';
+  $('lanes').setAttribute('aria-valuenow', Math.round(t));
+  document.body.classList.toggle('playing', playing);
+  const p = $('play');
+  if (p.dataset.on !== String(playing)) { p.dataset.on = playing; p.innerHTML = playing ? PAUSE : PLAY; p.setAttribute('aria-label', playing ? 'Pause' : 'Play'); }
+  requestAnimationFrame(frame);
+}
+$('play').onclick = toggle; video.onclick = toggle;
+$('pick-recorded').onclick = () => listen('recorded'); $('pick-song').onclick = () => listen('song');
+const lanes = $('lanes');
+const seekAt = e => { const c = $('wave-song').getBoundingClientRect(); seek((e.clientX - c.left) / c.width * LENGTH); };
+lanes.addEventListener('pointerdown', e => { lanes.setPointerCapture(e.pointerId); seekAt(e); });
+lanes.addEventListener('pointermove', e => { if (lanes.hasPointerCapture(e.pointerId)) seekAt(e); });
+lanes.addEventListener('keydown', e => { if (e.key === 'ArrowRight') seek(now() + 2); if (e.key === 'ArrowLeft') seek(now() - 2); if (e.key === ' ') { e.preventDefault(); toggle(); } });
+fetch(WAVES_URL).then(r => r.json()).then(w => { waves = w; drawWaves(); });
+addEventListener('resize', drawWaves);
+requestAnimationFrame(frame);
+</script>
 </body>
 </html>
