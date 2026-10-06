@@ -101,7 +101,7 @@ button:focus-visible, .lanes:focus-visible { outline: 2px solid var(--accent); o
 /* the three steps: one light row */
 .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 26px; }
 .steps li { display: flex; gap: 16px; align-items: flex-start; }
-.steps .num { flex: none; transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; }
+.steps .num { flex: none; transition: box-shadow 0.3s; }  /* colours change at once: fading both hid the digit halfway (1.2:1) */
 .steps.live li:not(.now) .num { background: transparent; color: var(--accent); box-shadow: inset 0 0 0 2px var(--accent); }  /* the steps the video isn't showing */
 .steps h3 { margin: 6px 0 4px; font-size: 20px; font-weight: 600; letter-spacing: -0.015em; }
 .steps p { margin: 0; color: var(--muted); }
