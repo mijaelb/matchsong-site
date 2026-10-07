@@ -61,7 +61,7 @@ h2.title { font-size: clamp(30px, 3.8vw, 46px); letter-spacing: -0.04em; line-he
 /* who it's for: each in one of the app's track colours */
 .row4 .who .mark, .who .mark { background: color-mix(in srgb, var(--tint) 20%, transparent); }
 .row4 .who .mark svg, .who .mark svg { stroke: var(--tint); }
-.who.dancers { --tint: var(--green); } .who.djs { --tint: var(--lavender); } .who.bands { --tint: var(--sand); } .who.video { --tint: var(--blue); }
+.who.dancers { --tint: var(--green); } .who.djs { --tint: var(--lavender); } .who.musicians { --tint: var(--sand); } .who.video { --tint: var(--blue); }
 
 /* the live demo: one video, with what the phone recorded or the original song MatchSong put back */
 .player { display: grid; gap: 14px; width: 100%; max-width: 900px; text-align: left; scroll-margin-top: 90px; }
