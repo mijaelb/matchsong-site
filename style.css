@@ -95,6 +95,8 @@ button:focus-visible, .lanes:focus-visible { outline: 2px solid var(--accent); o
 .how .device { justify-self: center; }
 .device { position: relative; width: 240px; border-radius: 40px; padding: 7px; background: #050505; box-shadow: 0 0 0 1.5px #3A3530, 0 40px 80px rgba(0, 0, 0, 0.6), 0 0 120px rgba(255, 122, 51, 0.16); }
 .device video { display: block; width: 100%; aspect-ratio: 660 / 1434; border-radius: 33px; background: #0E0D0C; }
+.film { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.film video { aspect-ratio: 660 / 1430; cursor: pointer; }
 @media (max-width: 760px) { .how { grid-template-columns: 1fr; gap: 36px; } .device { width: 220px; margin: 0 auto; } }
 .free { color: var(--muted); font-size: 15px; }
 
