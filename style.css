@@ -22,11 +22,11 @@ a { color: var(--accent); }
 .top { position: sticky; top: 0; z-index: 10; transition: background 0.3s, border-color 0.3s; border-bottom: 1px solid transparent; }
 .top.solid { background: rgba(14, 13, 12, 0.72); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-color: var(--line); }
 .top .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-.brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-size: 22px; letter-spacing: -0.035em; }
+.brand { display: flex; align-items: center; min-height: 44px; gap: 10px; color: var(--text); text-decoration: none; font-size: 22px; letter-spacing: -0.035em; }
 .brand img { width: 34px; height: 34px; }
 .brand b { font-weight: 600; }
 .top nav { display: flex; gap: 24px; align-items: center; font-size: 15px; }
-.top nav a { color: var(--muted); text-decoration: none; }
+.top nav a { color: var(--muted); text-decoration: none; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; }
 .top nav a:hover { color: var(--text); }
 @media (max-width: 760px) { .top nav .link { display: none; } }
 
@@ -96,6 +96,15 @@ button:focus-visible, .lanes:focus-visible { outline: 2px solid var(--accent); o
 .device { position: relative; width: 240px; border-radius: 40px; padding: 7px; background: #050505; box-shadow: 0 0 0 1.5px #3A3530, 0 40px 80px rgba(0, 0, 0, 0.6), 0 0 120px rgba(255, 122, 51, 0.16); }
 .device video { display: block; width: 100%; aspect-ratio: 660 / 1434; border-radius: 33px; background: #0E0D0C; }
 .film { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+/* Two columns on a computer (words, and a phone or the questions beside them); one on a phone */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.split.top { grid-template-columns: 1fr 1.6fr; align-items: start; }
+#why .film { order: -1; }  /* the film on the left, opposite the steps' video above */
+@media (max-width: 760px) { .split, .split.top { grid-template-columns: 1fr; gap: 32px; } #why .film { order: 0; } }
+.reasons { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; }
+.reasons li { display: grid; grid-template-columns: 46px 1fr; gap: 16px; align-items: start; }
+.reasons h3 { margin: 0 0 2px; font-size: 19px; font-weight: 600; letter-spacing: -0.015em; }
+.reasons p { margin: 0; color: var(--muted); font-size: 16px; }
 .film video { aspect-ratio: 660 / 1430; cursor: pointer; }
 @media (max-width: 760px) { .how { grid-template-columns: 1fr; gap: 36px; } .device { width: 220px; margin: 0 auto; } }
 .free { color: var(--muted); font-size: 15px; }
@@ -112,8 +121,8 @@ button:focus-visible, .lanes:focus-visible { outline: 2px solid var(--accent); o
 .row4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
 .row4 .item h3 { margin: 14px 0 4px; font-size: 19px; font-weight: 600; letter-spacing: -0.015em; }
 .row4 .item p { margin: 0; color: var(--muted); font-size: 16px; }
-.row4 .mark { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: rgba(255, 122, 51, 0.12); }
-.row4 .mark svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.mark { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: rgba(255, 122, 51, 0.12); }
+.mark svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 @media (max-width: 900px) { .row4 { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 480px) { .row4 { gap: 22px 18px; } }
 
@@ -140,7 +149,8 @@ button:focus-visible, .lanes:focus-visible { outline: 2px solid var(--accent); o
 
 /* footer */
 footer { margin-top: 72px; border-top: 1px solid var(--line); padding: 32px 0 48px; display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: center; justify-content: space-between; color: var(--muted); font-size: 15px; }
-footer nav { display: flex; flex-wrap: wrap; gap: 18px; }
+footer nav { display: flex; flex-wrap: wrap; column-gap: 18px; }
+footer nav a { display: inline-flex; align-items: center; min-height: 44px; }  /* 44 pt to touch */
 footer a { color: var(--muted); text-decoration: none; }
 footer a:hover { color: var(--text); }
 footer .credits { flex-basis: 100%; margin: 0; font-size: 13px; color: #857F76; }  /* 4.8:1 on studio black */

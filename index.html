@@ -14,13 +14,13 @@
 <link rel="icon" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/InstrumentSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=2">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 <header class="top" id="top">
   <div class="wrap">
     <a class="brand" href="./"><img src="icon.png" alt=""><span>Match<b>Song</b></span></a>
-    <nav><a class="link" href="#how">How it works</a><a class="link" href="#faq">Questions</a><span class="chip"><i></i>Coming soon</span></nav>
+    <nav><a class="link" href="#how">How it works</a><a class="link" href="#why">Why</a><a class="link" href="#faq">Questions</a><span class="chip"><i></i>Coming soon</span></nav>
   </div>
 </header>
 
@@ -68,12 +68,22 @@
       </div>
     </section>
 
-    <section class="block" id="film">
-      <div class="kicker">In 30 seconds</div>
-      <h2 class="title">See it work.</h2>
-      <div class="film reveal">
-        <div class="device"><video id="film-video" src="demo/film.mp4?v=1" poster="demo/film.jpg?v=1" muted loop playsinline preload="metadata" aria-label="A 30-second film of MatchSong: a dance video with the sound the phone recorded, one tap to the original song in sync, how the song is found and the video exported."></video></div>
-        <button class="pill quiet" id="film-sound" aria-pressed="false"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4.5 4.5 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg><span>Sound on</span></button>
+    <section class="block" id="why">
+      <div class="split">
+        <div>
+          <div class="kicker">Why MatchSong</div>
+          <h2 class="title">Simple. Precise. Private.</h2>
+          <ul class="reasons reveal">
+            <li><div class="mark"><svg viewBox="0 0 32 32"><circle cx="16" cy="17" r="11"/><path d="M16 17l5-5M13 3h6M16 6V3"/></svg></div><div><h3>Right on the beat</h3><p>Lined up to the millisecond.</p></div></li>
+            <li><div class="mark"><svg viewBox="0 0 32 32"><path d="M3 16h2M8 10v12M12 6v20M16 12v8M20 4v24M24 9v14M28 14v4"/></svg></div><div><h3>Loud rooms are fine</h3><p>Talking, cheering, echo: it still finds the song.</p></div></li>
+            <li><div class="mark"><svg viewBox="0 0 32 32"><path d="M11 28h10l-3-22h-4z"/><path d="M16 20l7-9"/><circle cx="16" cy="20" r="1.5"/></svg></div><div><h3>Any speed</h3><p>Danced to it slower? It matches, same pitch.</p></div></li>
+            <li><div class="mark"><svg viewBox="0 0 32 32"><rect x="6" y="14" width="20" height="14" rx="3"/><path d="M11 14v-4a5 5 0 0 1 10 0v4"/></svg></div><div><h3>Private</h3><p>Everything stays on your phone.</p></div></li>
+          </ul>
+        </div>
+        <div class="film reveal">
+          <div class="device"><video id="film-video" src="demo/film.mp4?v=1" poster="demo/film.jpg?v=1" muted loop playsinline preload="metadata" aria-label="A 30-second film of MatchSong: a dance video with the sound the phone recorded, one tap to the original song in sync, how the song is found and the video exported."></video></div>
+          <button class="pill quiet" id="film-sound" aria-pressed="false"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4.5 4.5 0 0 1 0 6M18 6.5a8 8 0 0 1 0 11"/></svg><span>Sound on</span></button>
+        </div>
       </div>
     </section>
 
@@ -88,26 +98,19 @@
       </div>
     </section>
 
-    <section class="block" id="why">
-      <div class="kicker">Why MatchSong</div>
-      <h2 class="title">Simple. Precise. Private.</h2>
-      <div class="row4 reveal">
-        <div class="item"><div class="mark"><svg viewBox="0 0 32 32"><circle cx="16" cy="17" r="11"/><path d="M16 17l5-5M13 3h6M16 6V3"/></svg></div><h3>Right on the beat</h3><p>Lined up to the millisecond.</p></div>
-        <div class="item"><div class="mark"><svg viewBox="0 0 32 32"><path d="M3 16h2M8 10v12M12 6v20M16 12v8M20 4v24M24 9v14M28 14v4"/></svg></div><h3>Loud rooms are fine</h3><p>Talking, cheering, echo: it still finds the song.</p></div>
-        <div class="item"><div class="mark"><svg viewBox="0 0 32 32"><path d="M11 28h10l-3-22h-4z"/><path d="M16 20l7-9"/><circle cx="16" cy="20" r="1.5"/></svg></div><h3>Any speed</h3><p>Danced to it slower? It matches, same pitch.</p></div>
-        <div class="item"><div class="mark"><svg viewBox="0 0 32 32"><rect x="6" y="14" width="20" height="14" rx="3"/><path d="M11 14v-4a5 5 0 0 1 10 0v4"/></svg></div><h3>Private</h3><p>Everything stays on your phone.</p></div>
-      </div>
-    </section>
-
     <section class="block" id="faq">
-      <div class="kicker">Questions</div>
-      <h2 class="title">Good to know.</h2>
-      <div class="faq">
-        <details><summary>What does MatchSong do?</summary><p>It swaps your video&rsquo;s recording for the original audio, perfectly in sync.</p></details>
-        <details><summary>Which songs can I use?</summary><p>Any song file you have (MP3, AAC, WAV, FLAC and more), or a better recording of the same music, like your DJ mix. Songs from streaming apps are locked and can&rsquo;t be used.</p></details>
-        <details><summary>Is it free?</summary><p>Finding the song, listening and editing are free. Saving the finished video needs MatchSong Pro.</p></details>
-        <details><summary>Does my video leave my phone?</summary><p>No. Everything happens on your phone. No account, no uploads.</p></details>
-        <details><summary>What if the song played faster or slower?</summary><p>MatchSong notices and matches the speed, keeping the pitch.</p></details>
+      <div class="split top">
+        <div>
+          <div class="kicker">Questions</div>
+          <h2 class="title">Good to know.</h2>
+        </div>
+        <div class="faq">
+          <details><summary>What does MatchSong do?</summary><p>It swaps your video&rsquo;s recording for the original audio, perfectly in sync.</p></details>
+          <details><summary>Which songs can I use?</summary><p>Any song file you have (MP3, AAC, WAV, FLAC and more), or a better recording of the same music, like your DJ mix. Songs from streaming apps are locked and can&rsquo;t be used.</p></details>
+          <details><summary>Is it free?</summary><p>Finding the song, listening and editing are free. Saving the finished video needs MatchSong Pro.</p></details>
+          <details><summary>Does my video leave my phone?</summary><p>No. Everything happens on your phone. No account, no uploads.</p></details>
+          <details><summary>What if the song played faster or slower?</summary><p>MatchSong notices and matches the speed, keeping the pitch.</p></details>
+        </div>
       </div>
     </section>
 
